@@ -1,0 +1,92 @@
+<div class="page-container">
+	<div class="app-header">
+	   <img src="./assets/images/logo.png" style="height:50px; width: auto; float: right;">
+	   <h1 class="noselect">Clocking System</h1>
+	</div>
+	<mat-tab-group #tabGroup dynamicHeight="true" (selectedTabChange)="tabChanged($event)">
+	<mat-tab label="Daily Timing">
+	   <div class="user-section" *ngIf="!loggedIn">
+		  <div class="user-section-details">
+			 <p>Log In</p>
+			 <form class="">
+				<mat-form-field>
+				   <mat-label>Name</mat-label>
+				   <input matInput [(ngModel)]="userEmail" name="userEmail" value="">
+				</mat-form-field>
+				<mat-form-field>
+				   <mat-label>Password</mat-label>
+				   <input matInput [(ngModel)]="userPassword" name="userPassword" value="" type="password">
+				</mat-form-field>
+			 </form>
+			 <button mat-raised-button color="primary" class="upload-button" (click)="userLogin()" style="margin-bottom: 2rem;">
+			 Log In
+			 </button>
+			 <mat-divider></mat-divider>
+			 <p style="font-size: 12px; margin-top: 1rem;">Don't have an account?</p>
+			 <form class="">
+				<mat-form-field>
+				   <mat-label>Name</mat-label>
+				   <input matInput type="text" [(ngModel)]="userName" name="userName" value="">
+				</mat-form-field>
+			 </form>
+			 <button mat-raised-button color="primary" class="upload-button" (click)="userLoginWithName()">
+			 Continue with Name
+			 </button>
+		  </div>
+
+		</div>
+		<div class="user-section" *ngIf="!loggedIn" style="margin:auto; height:300px;">
+			<div style="padding:1rem;">
+				<p>Some test accounts:</p>
+				<p>Name: account1  Password: password1</p>
+				<p>Name: account2  Password: password2</p>
+				<p>Name: account3  Password: password3</p>	
+			</div>
+	  	  </div>
+
+		<div class="timing-list" *ngIf="loggedIn">
+		  <div style="float:right; margin-right: 2rem;">
+			 <p><b>Current Time:</b> {{currentTime}}</p>
+		  </div>
+		  <div class="timing-operation">
+			 <button mat-raised-button color="white" class="save-button"  style="visibility: hidden;">Refresh</button>
+		  </div>
+		  <div class="mat-elevation-z2" style="background-color: white; width: 28%; float:left;">
+			 <div style="padding:1rem;">
+				<h1>Profile Section</h1>
+				<img class="center" src="./assets/images/user_avatar.png" style="height:150px; width: auto;">
+				<h3 style="text-align: center;">{{loginAs}}</h3>
+				<div class="user-details">
+				   <p>Name: George Wang</p>
+				   <p>Email: george.siqi.wang@gmail.com</p>
+				   <p>Total Time: 10 Hours</p>
+				   <button class="center" style="margin-top: 3rem; margin-bottom: 1rem;" mat-raised-button color="white" (click)="logOut()">Log Out</button>
+				</div>
+			 </div>
+		  </div>
+		  <div class="mat-elevation-z2" style="background-color: white; width: 70%; float:right;">
+			 <div style="padding: 1rem;">
+				<h1>Timing Section</h1>
+				<button *ngIf="!timing" style="margin-left: 2rem;" mat-raised-button color="white" class="save-button" (click)="timingToggled()">Start Clock</button>
+				<div *ngIf="timing" style="margin-left: 2rem;">
+				   <button  mat-raised-button color="white" class="save-button" (click)="timingToggled()">Stop Clock</button>
+				   <mat-chip-list>
+					  <mat-chip class="timing-chip" color="primary" selected>{{ timingSeconds | time }}</mat-chip>
+				   </mat-chip-list>
+				</div>
+			 </div>
+			 <br>
+			 <div class="mat-elevation-z2" *ngIf="userTimed">
+				<table-list [columns]="columns" [data]="userTiming | dataSource" (doAction)="doAction($event)"></table-list>
+			 </div>
+		  </div>
+	   </div>
+	</mat-tab>
+	<mat-tab label="View Timings">
+	   <div class="timing-list">
+		  <view-timings></view-timings>
+	   </div>
+	</mat-tab>
+	</mat-tab-group>
+ </div>
+ <img class="gw-logo" src="./assets/images/gw_logo.png">

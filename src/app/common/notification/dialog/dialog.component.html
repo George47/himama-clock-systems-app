@@ -1,0 +1,21 @@
+<div class="notification-message">
+    <h2 [innerHTML]="title"></h2>
+    <p [innerHTML]="message"></p>
+    <div *ngIf="edit" style="padding: 3rem;">
+        Start Time:
+        <input [(ngModel)]="start_time" value="{{start_time}}">
+        <br><br>
+        End Time:
+        <input [(ngModel)]="end_time" value="{{end_time}}">
+    </div>
+    <div class="actions">
+        <div *ngIf="edit">
+            <button mat-button (click)="editTime(start_time, end_time)">Save</button>
+            <button mat-button (click)="close(false)">Cancel</button>
+        </div>
+        <div *ngIf="!edit">
+            <button mat-button (click)="close(true)">{{ yes }}</button>
+            <button mat-button (click)="close(false)" *ngIf="no">{{ no }}</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,40 @@
+<mat-paginator *ngIf="top_pagination"
+	[length]="total"
+	[pageSize]="per_page"
+	[pageSizeOptions]="page_size"
+	(page)="switchPage($event)">
+</mat-paginator>
+<div class="table-list">
+<mat-table #table [dataSource]="data" *ngIf="displayedColumns">
+	<ng-container *ngFor="let col of columns" [matColumnDef]="col.name" [ngSwitch]="col.type">
+		<div *ngSwitchCase="'actions'">
+			<mat-header-cell class="col.name" *matHeaderCellDef [ngStyle]="{'flex': col.width? '0 0 ' + col.width: 1}"> Actions </mat-header-cell>			
+			<mat-cell *matCellDef="let item" [ngStyle]="{'flex': col.width? '0 0 ' + col.width: 1}"> 
+				<!-- <span *ngFor="let action of col.actions"> -->
+					<a mat-icon-button (click)="runAction('edit', item)" title="edit">
+						<mat-icon class="actionButton">edit</mat-icon>
+					</a>
+					<a mat-icon-button (click)="runAction('delete', item)" title="delete">
+						<mat-icon class="actionButton">delete</mat-icon>
+					</a>
+				<!-- </span> -->
+			</mat-cell>
+		</div>
+		<div *ngSwitchDefault>
+			<mat-header-cell *matHeaderCellDef [ngStyle]="{'flex': col.width? '0 0 ' + col.width: 1, 'text-align': 'left'}"> {{ col.header }} </mat-header-cell>
+			<mat-cell *matCellDef="let item" [ngStyle]="{'flex': col.width? '0 0 ' + col.width: 1, 'text-align': 'left'}" (click)="runAction(col.action, item)">
+				<p>{{ item[col.value_name] }}</p>
+			</mat-cell>
+		</div>
+	</ng-container>
+	<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+	<mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+<mat-paginator 
+	[length]="total"
+	[pageSize]="per_page"
+	[pageSizeOptions]="page_size"
+	(page)="switchPage($event)">
+</mat-paginator>
+
+</div>

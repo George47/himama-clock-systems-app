@@ -1,0 +1,21 @@
+<!-- <table-list [columns]="columns" [data]="data_rows | dataSource" (doAction)="doAction($event)"></table-list> -->
+<h1>Full Report</h1>
+<table class="mat-elevation-z2" style="width:100%; background-color:white; padding: 1rem;">
+	<tr>
+		<th>Time ID</th>
+		<th>User ID</th> 
+		<th>Name</th>
+		<th>Email</th>
+		<th>Start Time</th>
+		<th>End Time</th>
+	</tr>
+	<br>
+	<tr *ngFor="let row of data_rows; ">
+	  <td>{{row.time_id || NULL}}</td>
+	  <td>{{row.user_id || NULL}}</td> 
+	  <td>{{row.name || NULL}}</td>
+	  <td>{{row.email || NULL}}</td>
+	  <td>{{row.start_time || NULL}}</td> 
+	  <td>{{row.end_time || NULL}}</td>
+	</tr>
+</table>
